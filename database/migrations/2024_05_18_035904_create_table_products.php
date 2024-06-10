@@ -17,13 +17,14 @@ return new class extends Migration
             $table->string('code')->nullable();
             $table->string('product_name');
             $table->string('product_price')->nullable();
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 
 
-    
+
     public function down(): void
     {
         Schema::dropIfExists('table_products');

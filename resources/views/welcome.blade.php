@@ -97,26 +97,26 @@
 
 /* Larger text styles */
 #hero h2 {
-    font-size: 56px; /* Adjust size as needed */
-    margin-bottom: 20px; /* Add some spacing between title and description */
-    animation: moveLetters 2s infinite alternate; /* Add animation for moving letters */
+    font-size: 56px; 
+    margin-bottom: 20px;
+    animation: moveLetters 2s infinite alternate;
 }
 
 #hero p {
-    font-size: 34px; /* Adjust size as needed */
-    margin-bottom: 40px; /* Add some spacing between description and button */
+    font-size: 34px;
+    margin-bottom: 40px;
 }
 
 /* Define animation for moving letters */
 @keyframes moveLetters {
     0% {
-        letter-spacing: normal; /* Start with normal letter spacing */
+        letter-spacing: normal;
     }
     50% {
-        letter-spacing: 5px; /* Increase letter spacing in the middle of animation */
+        letter-spacing: 5px;
     }
     100% {
-        letter-spacing: normal; /* Return to normal letter spacing at the end of animation */
+        letter-spacing: normal;
     }
 }/* Feature Section Styles */
         #features {
@@ -134,42 +134,41 @@
             height: 100px;
         }
 
-        /* Testimonials Section Styles */
-        /* Testimonials Section Styles */
+
 #testimonials {
     background-color: #596591;
     padding: 80px 0;
     text-align: center;
-    width: 100%; /* Make the section full width */
-    overflow-x: auto; /* Allow horizontal scrolling if needed */
-    white-space: nowrap; /* Prevent wrapping of testimonial blocks */
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .container {
-    max-width: none; /* Remove the maximum width constraint */
+    max-width: none;
 }
 
 .testimonial {
-    display: inline-block; /* Display testimonials side by side */
-    margin-right: 20px; /* Add some spacing between testimonials */
+    display: inline-block;
+    margin-right: 20px;
 }
 
 .testimonial img {
-    width: 200px; /* Adjust image width */
-    height: 200px; /* Maintain aspect ratio */
-    border-radius: 50%; /* Make the image circular */
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
 }
 
 blockquote {
     font-style: italic;
-    margin: 20px 0; /* Add some spacing above and below the blockquote */
+    margin: 20px 0;
 }
 
 cite {
     font-weight: bold;
 }
 
-        /* Call-to-Action Section Styles */
+
         #cta {
             padding: 100px 0;
             text-align: center;
@@ -219,8 +218,41 @@ cite {
 <header>
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-          <div class="container-fluid">
-            <h1>Shopify Co.</h1>
+            <style>
+                @keyframes revealLetters {
+                  0% { opacity: 0; transform: translateY(-20px); }
+                  100% { opacity: 1; transform: translateY(0); }
+                }
+
+                h1 {
+                  font-size: 36px;
+                  font-weight: bold;
+                  color: #efeeea;
+                  text-transform: uppercase;
+                  letter-spacing: 10px;
+                  margin: 0;
+                }
+
+                h1 span {
+                  display: inline-block;
+                  opacity: 0;
+                  animation: revealLetters 4s ease forwards infinite;
+                  animation-delay: calc(0.2s * var(--index));
+                }
+              </style>
+            <h1>
+                <span style="--index: 1;">S</span>
+                <span style="--index: 2;">h</span>
+                <span style="--index: 3;">o</span>
+                <span style="--index: 4;">p</span>
+                <span style="--index: 5;">i</span>
+                <span style="--index: 6;">f</span>
+                <span style="--index: 7;">y</span>
+                <span>&nbsp;</span>
+                <span style="--index: 8;">C</span>
+                <span style="--index: 9;">o</span>
+                <span style="--index: 10;">.</span>
+              </h1>
           </div>
         </nav>
       </div>
@@ -237,7 +269,7 @@ cite {
         </div>
         <h2>Welcome to Shopify Co.</h2>
         <p>Discover amazing products at great prices!</p>
-        <a href="#" class="btn">Shop Now</a>
+        <a href="/shopnow" class="btn">Shop Now</a>
     </div>
 </section>
 

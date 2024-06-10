@@ -20,6 +20,7 @@ class Product extends Model
         'product_name',
         'product_price',
         'user_id',
+        'image', 
     ];
     public function user()
     {

@@ -23,8 +23,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/editproduct/{Productid}',[ProductController::class,'update'])->name("products.update");
     Route::get('/deleteproduct/{Productid}',[ProductController::class,'destroy'])->name("products.destroy");
     Route::get('/html', [TemplateController::class,'index']);
-    
+
 });
+Route::get('/shopnow', [ProductController::class,'shopNow'])->name('shopnow');
 
 require __DIR__.'/auth.php';
 

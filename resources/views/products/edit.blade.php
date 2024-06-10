@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edite a Product') }}
+            {{ __('Edit a Product') }}
         </h2>
     </x-slot>
     <br/>
@@ -26,7 +26,6 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             max-width: 500px;
             width: 100%;
-            height: 120%;
             box-sizing: border-box;
         }
         h1 {
@@ -79,38 +78,55 @@
             color: #dc3545;
             margin-bottom: 5px;
         }
+        .current-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .current-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
     </style>
-</head>
-<body>
     <div class="main-container">
-    <div class="form-container">
-        <h1>Edit a Product</h1>
-        @if($errors->any())
-        <div class="alert alert-danger">
-            <ul class="error-list">
-                @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <div class="form-container">
+            <h1>Edit a Product</h1>
+            @if($errors->any())
+            <div class="alert alert-danger">
+                <ul class="error-list">
+                    @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            <form method="post" action="{{ route('products.update', ['Productid' => $product->id]) }}" enctype="multipart/form-data">
+                @csrf
+                @method('post')
+                <div class="form-group">
+                    <label for="code">Code</label>
+                    <input type="text" name="code" value="{{ $product->code }}" class="form-control" id="code" placeholder="Enter code">
+                </div>
+                <div class="form-group">
+                    <label for="product_name">Product Name</label>
+                    <input type="text" name="product_name" value="{{ $product->product_name }}" class="form-control" id="product_name" placeholder="Enter product name">
+                </div>
+                <div class="form-group">
+                    <label for="product_price">Price</label>
+                    <input type="text" name="product_price" value="{{ $product->product_price }}" class="form-control" id="product_price" placeholder="Enter price">
+                </div>
+                <div class="form-group">
+                    <label for="image">Product Image</label>
+                    <input type="file" name="image" class="form-control" id="image">
+                </div>
+                @if ($product->image)
+                <div class="current-image">
+                    <label>Current Image:</label>
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="Current Image">
+                </div>
+                @endif
+                <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+            </form>
         </div>
-        @endif
-        <form method="post" action="{{ route('products.update', ['Productid' => $product->id]) }}">
-            @csrf
-            @method('post')
-            <div class="form-group">
-                <label for="code">Code</label>
-                <input type="text" name="code" value="{{ $product->code }}" class="form-control" id="code" placeholder="Enter code">
-            </div>
-            <div class="form-group">
-                <label for="product_name">Product Name</label>
-                <input type="text" name="product_name" value="{{ $product->product_name }}" class="form-control" id="product_name" placeholder="Enter product name">
-            </div>
-            <div class="form-group">
-                <label for="product_price">Price</label>
-                <input type="text" name="product_price" value="{{ $product->product_price }}" class="form-control" id="product_price" placeholder="Enter price">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
-        </form>
     </div>
-</div>
 </x-app-layout>
