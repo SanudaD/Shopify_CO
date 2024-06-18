@@ -116,6 +116,10 @@
                     <input type="text" name="product_price" value="{{ $product->product_price }}" class="form-control" id="product_price" placeholder="Enter price">
                 </div>
                 <div class="form-group">
+                    <label for="product_price">Product Category</label>
+                    <input type="text" name="product_category" value="{{ $product->product_category }}" class="form-control" id="product_category" placeholder="Enter product category">
+                </div>
+                <div class="form-group">
                     <label for="image">Product Image</label>
                     <input type="file" name="image" class="form-control" id="image">
                 </div>
