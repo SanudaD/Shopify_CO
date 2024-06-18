@@ -13,17 +13,20 @@ return new class extends Migration
     {
         Schema::create('table_products', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('product_category_code')->nullable();
+            $table->foreign('product_category_code')->references('code')->on('table_products')->onDelete('set null');
             $table->timestamps();
             $table->string('code')->nullable();
             $table->string('product_name');
             $table->string('product_price')->nullable();
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 
 
-    
+
     public function down(): void
     {
         Schema::dropIfExists('table_products');

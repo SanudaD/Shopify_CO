@@ -16,7 +16,6 @@
         .main-container {
             display: flex;
             justify-content: center;
-            /* align-items: center; */
             min-height: calc(100vh - 4rem);
             padding: 20px;
         }
@@ -27,7 +26,6 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             max-width: 500px;
             width: 100%;
-            height: 120%;
             box-sizing: border-box;
         }
         h1 {
@@ -94,7 +92,7 @@
                 </ul>
             </div>
             @endif
-            <form method="post" action="{{ route('addproduct') }}">
+            <form method="post" action="{{ route('addproduct') }}" enctype="multipart/form-data">
                 @csrf
                 @method('post')
                 <div class="form-group">
@@ -108,6 +106,10 @@
                 <div class="form-group">
                     <label for="product_price">Price</label>
                     <input type="text" name="product_price" class="form-control" id="product_price" placeholder="Enter product price">
+                </div>
+                <div class="form-group">
+                    <label for="image">Product Image</label>
+                    <input type="file" name="image" class="form-control" id="image">
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Save New Product</button>
             </form>

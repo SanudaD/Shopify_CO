@@ -20,7 +20,13 @@ class Product extends Model
         'product_name',
         'product_price',
         'user_id',
+        'image',
+        'product_category_code' 
     ];
+    public function category()
+    {
+        return $this->belongsTo(ProductCategory::class, 'product_category_code');
+    }
     public function user()
     {
         return $this->belongsTo(User::class);

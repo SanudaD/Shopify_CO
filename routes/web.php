@@ -5,6 +5,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\Template\Template;
 use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\CategoryController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,8 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/editproduct/{Productid}',[ProductController::class,'update'])->name("products.update");
     Route::get('/deleteproduct/{Productid}',[ProductController::class,'destroy'])->name("products.destroy");
     Route::get('/html', [TemplateController::class,'index']);
-    
+    Route::resource('categories', CategoryController::class);
+
 });
+Route::get('/shopnow', [ProductController::class,'shopNow'])->name('shopnow');
 
 require __DIR__.'/auth.php';
 
