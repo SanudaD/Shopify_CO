@@ -83,9 +83,10 @@
             margin-bottom: 20px;
         }
         .current-image img {
-            max-width: 100%;
+            max-width: 50%;
             height: auto;
             border-radius: 10px;
+            margin-left:100px;
         }
     </style>
     <div class="main-container">
@@ -116,17 +117,13 @@
                     <input type="text" name="product_price" value="{{ $product->product_price }}" class="form-control" id="product_price" placeholder="Enter price">
                 </div>
                 <div class="form-group">
-                    <label for="product_price">Product Category</label>
-                    <input type="text" name="product_category" value="{{ $product->product_category }}" class="form-control" id="product_category" placeholder="Enter product category">
-                </div>
-                <div class="form-group">
                     <label for="image">Product Image</label>
                     <input type="file" name="image" class="form-control" id="image">
                 </div>
                 @if ($product->image)
                 <div class="current-image">
                     <label>Current Image:</label>
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="Current Image">
+                    <img src="{{ asset('uploads/' . $product->image) }}" alt="Current Image">
                 </div>
                 @endif
                 <button type="submit" class="btn btn-primary btn-block">Save Changes</button>

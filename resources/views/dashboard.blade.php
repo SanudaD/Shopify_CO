@@ -116,7 +116,7 @@
                     </div>
                     <div class="card-body">
                         @if ($product->image)
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->product_name }}" class="product-image">
+                        <img src="{{ asset('uploads/' . $product->image) }}" alt="{{ $product->product_name }}" class="product-image">
                         @endif
                         <p><strong>Code:</strong> {{ $product->code }}</p>
                         <p><strong>Price:</strong> ${{ $product->product_price }}</p>

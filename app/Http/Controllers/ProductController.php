@@ -58,9 +58,18 @@ class ProductController extends Controller
         $product->product_price = $validatedData['product_price'];
 
         if ($request->hasFile('image')) {
-            // Store the uploaded image and get its path
-            $imagePath = $request->file('image')->store('images', 'public');
-            $product->image = $imagePath;
+
+            if ($product->image) {
+                $oldImagePath = public_path('uploads/' . $product->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+    
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads'), $imageName);
+            $product->image = $imageName;
         }
 
         $product->save();
@@ -93,9 +102,10 @@ class ProductController extends Controller
         $product->user_id = Auth::id(); // Assign the authenticated user's ID
 
         if ($request->hasFile('image')) {
-            // Store the uploaded image and get its path
-            $imagePath = $request->file('image')->store('images', 'public');
-            $product->image = $imagePath;
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads'), $imageName);
+            $product->image = $imageName;
         }
 
         $product->save();

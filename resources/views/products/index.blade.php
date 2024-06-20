@@ -28,7 +28,8 @@
         .card-container {
           display: flex;
           flex-wrap: wrap;
-          gap: 20px;
+          gap: 10px;
+         
         }
         .card {
           background-color: #b2c1ef;
@@ -107,10 +108,15 @@
             <div class="card-header">
               <h5>{{ $product->product_name }}</h5>
             </div>
-            <div class="card-body">
-              @if ($product->image)
-              <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->product_name }}" class="product-image">
-              @endif
+            @if ($product->image)
+          
+            <div>
+            <img src="{{ asset('uploads/' . $product->image) }}" alt="{{ $product->product_name }}" class="product-image">
+      </div>
+ @endif
+
+
+          
               <p><strong>Code:</strong> {{ $product->code }}</p>
               <p><strong>Price:</strong> ${{ $product->product_price }}</p>
               <p><strong>User Name:</strong> {{ $product->user->name }}</p>
@@ -120,10 +126,13 @@
                 <a href="{{ route('products.destroy', ['Productid' => $product->id]) }}" class="btn btn-outline-info">Delete</a>
               </div>
             </div>
-          </div>
+         
+          <br>
           @endforeach
+          </div>
         </div>
       </div>
+
     </body>
     </html>
 </x-app-layout>
