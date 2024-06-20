@@ -15,7 +15,6 @@
         .main-container {
             display: flex;
             justify-content: center;
-            /* align-items: center; */
             min-height: calc(100vh - 4rem);
             padding: 20px;
         }
@@ -86,9 +85,21 @@
             max-width: 50%;
             height: auto;
             border-radius: 10px;
-            margin-left:100px;
+            margin-left: 100px; /* Adjust as needed */
         }
     </style>
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var output = document.getElementById('current-image');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
     <div class="main-container">
         <div class="form-container">
             <h1>Edit a Product</h1>
@@ -118,14 +129,16 @@
                 </div>
                 <div class="form-group">
                     <label for="image">Product Image</label>
-                    <input type="file" name="image" class="form-control" id="image">
+                    <input type="file" name="image" class="form-control" id="image" onchange="previewImage(event)">
                 </div>
-                @if ($product->image)
                 <div class="current-image">
                     <label>Current Image:</label>
-                    <img src="{{ asset('uploads/' . $product->image) }}" alt="Current Image">
+                    @if ($product->image)
+                        <img id="current-image" src="{{ asset('uploads/' . $product->image) }}" alt="Current Image">
+                    @else
+                        <p>No image available</p>
+                    @endif
                 </div>
-                @endif
                 <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
             </form>
         </div>
