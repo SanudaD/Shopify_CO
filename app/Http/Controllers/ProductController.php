@@ -4,15 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+
     public function index()
     {
         $products = Product::all();
-        return view("dashboard", compact("products"));
+        $categories = ProductCategory::all();
+
+        return view('products.index', compact('products', 'categories'));
     }
+
+    
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'product_category_code', 'product_category_code');
+    }
+
+    public function category()
+{
+    return $this->belongsTo(ProductCategory::class, 'product_category_code', 'code');
+}
+    
 
     public function shopNow()
     {
@@ -22,26 +38,33 @@ class ProductController extends Controller
 
     public function getUserAppProduct()
     {
-        // Get the ID of the authenticated user
+        //Get the ID of the authenticated user
         $userId = Auth::id();
 
         // Retrieve only the products added by the authenticated user
         $products = Product::where('user_id', $userId)->get();
+        $categories = ProductCategory::all();
 
-        return view("products.index", compact("products"));
+
+        return view("products.index", compact("products", "categories"));
+
     }
+
 
     public function create()
-    {
-        $products = Product::all();
-        return view("products.addproduct", compact("products"));
-    }
+{
+    $categories = ProductCategory::all();
+    $products = Product::all();
+    return view("products.addproduct", compact("categories", "products"));
+}
 
-    public function edit($Productid)
-    {
-        $product = Product::find($Productid);
-        return view("products.edit", compact("product"));
-    }
+public function edit($Productid)
+{
+    $product = Product::find($Productid);
+    $categories = ProductCategory::all();
+    return view("products.edit", compact("product", "categories"));
+}
+
 
     public function update(Request $request, $Productid)
     {
@@ -49,13 +72,17 @@ class ProductController extends Controller
             'code' => 'required',
             'product_name' => 'required',
             'product_price' => 'required',
+            'product_category' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4000',
         ]);
 
         $product = Product::findOrFail($Productid);
         $product->code = $validatedData['code'];
         $product->product_name = $validatedData['product_name'];
-        $product->product_price = $validatedData['product_price'];
+        $product->product_price = $validatedData['product_price'];  
+        $product->product_category_code = $validatedData['product_category'];
+
+        // Handle the image upload...
 
         if ($request->hasFile('image')) {
 
@@ -89,16 +116,18 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'code' => 'required',
-            'product_name' => 'required',
-            'product_price' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4000',
+            'code' => 'required|integer|unique:table_products,code', 
+            'product_name' => 'required|string|max:255',
+            'product_price' => 'required|numeric|min:0',
+            'product_category' => 'required|integer|exists:table_categories,product_category_code',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4000', 
         ]);
 
         $product = new Product();
         $product->code = $validatedData['code'];
         $product->product_name = $validatedData['product_name'];
         $product->product_price = $validatedData['product_price'];
+        $product->product_category_code = $validatedData['product_category'];
         $product->user_id = Auth::id(); // Assign the authenticated user's ID
 
         if ($request->hasFile('image')) {

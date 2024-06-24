@@ -115,24 +115,46 @@
       </div>
  @endif
 
-
-          
               <p><strong>Code:</strong> {{ $product->code }}</p>
               <p><strong>Price:</strong> ${{ $product->product_price }}</p>
               <p><strong>User Name:</strong> {{ $product->user->name }}</p>
+              <p><strong>Product Category:</strong> @php
+    $categoryFound = false;
+@endphp
+
+@foreach($products as $product)
+    @if($product->category)
+        {{-- Display the category name --}}
+        {{ $product->category->category_name }}
+        @php
+            $categoryFound = true;
+        @endphp
+    @endif
+@endforeach
+
+@if(!$categoryFound)
+    {{ __('No Category') }}
+@endif</p>
+             
               <br/>
               <div class="d-flex">
+              <!-- @if($product->user_id == Auth::user()->id) -->
                 <a href="{{ route('products.edit', ['Productid' => $product->id]) }}" class="btn btn-outline-info mr-2">Update</a>
                 <a href="{{ route('products.destroy', ['Productid' => $product->id]) }}" class="btn btn-outline-info">Delete</a>
+                <!-- @endif -->
               </div>
             </div>
          
           <br>
+          
           @endforeach
+
+  
           </div>
         </div>
       </div>
 
     </body>
     </html>
+    
 </x-app-layout>

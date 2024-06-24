@@ -128,6 +128,16 @@
                     <input type="text" name="product_price" value="{{ $product->product_price }}" class="form-control" id="product_price" placeholder="Enter price">
                 </div>
                 <div class="form-group">
+                    <label for="product_category">Category</label>
+                    <select name="product_category" class="form-control" id="product_category">
+                        @foreach($categories as $category)
+                            <option value="{{ $category->product_category_code }}">{{ $category->category_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <a href="{{ route('categories.create') }}" class="btn btn-primary">Add Category</a>
+                <br/><br/>
+                <div class="form-group">
                     <label for="image">Product Image</label>
                     <input type="file" name="image" class="form-control" id="image" onchange="previewImage(event)">
                 </div>
