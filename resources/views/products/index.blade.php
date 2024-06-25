@@ -119,22 +119,26 @@
               <p><strong>Price:</strong> ${{ $product->product_price }}</p>
               <p><strong>User Name:</strong> {{ $product->user->name }}</p>
               <p><strong>Product Category:</strong> @php
-    $categoryFound = false;
-@endphp
+                $categoryFound = false;
+            @endphp
 
-@foreach($products as $product)
-    @if($product->category)
-        {{-- Display the category name --}}
-        {{ $product->category->category_name }}
-        @php
-            $categoryFound = true;
-        @endphp
-    @endif
-@endforeach
+            {{-- Assuming $products is a collection or array of product objects --}}
+            @if($product)
+                @foreach($categories as $category)
+                    @if($product->product_category_code == $category->product_category_code)
+                        {{-- Display the category name --}}
+                        {{ $category->category_name }}
+                        @php
+                            $categoryFound = true;
+                            break; // Exit loop as we've found the matching category
+                        @endphp
+                    @endif
+                @endforeach
+            @endif
 
-@if(!$categoryFound)
-    {{ __('No Category') }}
-@endif</p>
+            @if(!$categoryFound)
+                {{ __('No Category') }}
+            @endif</p>
              
               <br/>
               <div class="d-flex">
